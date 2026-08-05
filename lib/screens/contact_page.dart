@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import '../theme/app_theme.dart';
 
 class ContactPage extends StatelessWidget {
@@ -11,24 +10,42 @@ class ContactPage extends StatelessWidget {
     'Berapakah yuran pendaftaran?',
   ];
 
-  static const _whatsappNumber = '60135805761'; // format wa.me, tanpa '+'
-static const _phoneNumber = '+60135805761';
-static const _email = 'info@saderi.my';
+  // --- Nombor & alamat hubungan (tukar ikut keperluan sebenar) ---
+  static const _whatsappNumber = '60135805761'; // tanpa '+', '0' depan & simbol
+  static const _phoneNumber = '+60135805761';
+  static const _email = 'info@saderi.my';
 
-Future<void> _openWhatsApp(BuildContext context) async {
-  final uri = Uri.parse('https://wa.me/$_whatsappNumber');
-  await launchUrl(uri, mode: LaunchMode.externalApplication);
-}
+  Future<void> _openWhatsApp(BuildContext context) async {
+    final uri = Uri.parse('https://wa.me/$_whatsappNumber');
+    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!launched && context.mounted) {
+      _showError(context, 'Tidak dapat membuka WhatsApp.');
+    }
+  }
 
-Future<void> _makePhoneCall(BuildContext context) async {
-  final uri = Uri(scheme: 'tel', path: _phoneNumber);
-  await launchUrl(uri);
-}
+  Future<void> _makePhoneCall(BuildContext context) async {
+    final uri = Uri(scheme: 'tel', path: _phoneNumber);
+    final launched = await launchUrl(uri);
+    if (!launched && context.mounted) {
+      _showError(context, 'Tidak dapat membuat panggilan.');
+    }
+  }
 
-Future<void> _sendEmail(BuildContext context) async {
-  final uri = Uri(scheme: 'mailto', path: _email, query: 'subject=...');
-  await launchUrl(uri);
-}
+  Future<void> _sendEmail(BuildContext context) async {
+    final uri = Uri(
+      scheme: 'mailto',
+      path: _email,
+      query: 'subject=${Uri.encodeComponent('Pertanyaan Kelas Mengaji Saderi')}',
+    );
+    final launched = await launchUrl(uri);
+    if (!launched && context.mounted) {
+      _showError(context, 'Tidak dapat membuka aplikasi e-mel.');
+    }
+  }
+
+  void _showError(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +84,7 @@ Future<void> _sendEmail(BuildContext context) async {
                     iconColor: const Color(0xFF25D366),
                     label: 'WhatsApp',
                     value: 'Klik untuk chat',
-                    // Cadangan: guna pakej url_launcher untuk buka WhatsApp terus.
-                    onTap: () {
-
-                    },
+                    onTap: () => _openWhatsApp(context),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -79,8 +93,8 @@ Future<void> _sendEmail(BuildContext context) async {
                     icon: Icons.call_rounded,
                     iconColor: AppColors.primary,
                     label: 'Telefon',
-                    value: '+6013-580 5761',
-                    onTap: () {},
+                    value: '013-580 5761',
+                    onTap: () => _makePhoneCall(context),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -89,8 +103,8 @@ Future<void> _sendEmail(BuildContext context) async {
                     icon: Icons.mail_rounded,
                     iconColor: AppColors.primary,
                     label: 'E-mel',
-                    value: 'info@saderi.my',
-                    onTap: () {},
+                    value: _email,
+                    onTap: () => _sendEmail(context),
                   ),
                 ),
               ],
