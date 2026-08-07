@@ -25,15 +25,14 @@ class HomePage extends StatelessWidget {
             // --- Header: logo + tajuk + notifikasi ---
             Row(
               children: [
-                CircleAvatar(
-                  radius: 22,
-                  backgroundColor: AppColors.primary.withValues(alpha: 0.1),
-                  child: const Icon(Icons.menu_book_rounded, color: AppColors.primary),
-                ),
+                Container(
+                  height: 50,
+                  width: 50,
+                  child: Image.asset("assets/images/kms_logo.png", filterQuality: FilterQuality.high,isAntiAlias: true,fit: BoxFit.contain,)),
                 const SizedBox(width: 12),
                 const Expanded(
                   child: Text(
-                    'Kelas Mengaji\nSaderi',
+                    'Kelas Mengaji Saderi',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textDark, height: 1.2),
                   ),
                 ),
