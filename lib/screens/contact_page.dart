@@ -108,7 +108,7 @@ class ContactPage extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 height: 400,
-                child: Image.asset("assets/images/kms_logo.jpeg",fit: BoxFit.contain,)),
+                child: Image.asset("assets/images/kms_logo.png",fit: BoxFit.contain,)),
             ),
             const SizedBox(height: 22),
             Row(
