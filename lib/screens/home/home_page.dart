@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import '../data/dummy_data.dart';
-import '../theme/app_theme.dart';
-import '../widgets/class_card.dart';
-import '../widgets/feature_item.dart';
-import '../widgets/schedule_card.dart';
-import '../widgets/section_header.dart';
-import 'program_detail_page.dart';
-import 'program_page.dart';
-import 'schedule_page.dart';
+import 'package:kelas_mengaji_saderi/screens/timeline/timeline_page.dart';
+import '../../data/dummy_data.dart';
+import '../../theme/app_theme.dart';
+import '../../widgets/class_card.dart';
+import '../../widgets/feature_item.dart';
+import '../../widgets/schedule_card.dart';
+import '../../widgets/section_header.dart';
+import '../program_detail_page.dart';
+import '../program_page.dart';
+import '../schedule_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,19 +27,24 @@ class HomePage extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  height: 50,
-                  width: 50,
-                  child: Image.asset("assets/images/kms_logo.png", filterQuality: FilterQuality.high,isAntiAlias: true,fit: BoxFit.contain,)),
+                    height: 50,
+                    width: 50,
+                    child: Image.asset(
+                      "assets/images/kms_logo.png",
+                      filterQuality: FilterQuality.high,
+                      isAntiAlias: true,
+                      fit: BoxFit.contain,
+                    )),
                 const SizedBox(width: 12),
                 const Expanded(
                   child: Text(
                     'Kelas Mengaji Saderi',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textDark, height: 1.2),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textDark,
+                        height: 1.2),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.notifications_none_rounded, color: AppColors.textDark),
                 ),
               ],
             ),
@@ -56,17 +62,25 @@ class HomePage extends StatelessWidget {
                 children: [
                   const Text(
                     'Belajar Al-Quran\nDengan Mudah & Teratur',
-                    style: TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.bold, height: 1.3),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
+                        height: 1.3),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     'Bimbingan mengaji secara berperingkat untuk kanak-kanak dan dewasa.',
-                    style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 13, height: 1.4),
+                    style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.85),
+                        fontSize: 13,
+                        height: 1.4),
                   ),
                   const SizedBox(height: 18),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ProgramPage()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => const ProgramPage()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
@@ -77,7 +91,8 @@ class HomePage extends StatelessWidget {
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Daftar Sekarang', style: TextStyle(fontWeight: FontWeight.w700)),
+                        Text('Daftar Sekarang',
+                            style: TextStyle(fontWeight: FontWeight.w700)),
                         SizedBox(width: 6),
                         Icon(Icons.arrow_forward_rounded, size: 18),
                       ],
@@ -99,19 +114,22 @@ class HomePage extends StatelessWidget {
               child: const Row(
                 children: [
                   FeatureItem(
-                    icon: Icons.auto_awesome_rounded,
-                    title: 'Guru Berpengalaman',
-                    subtitle: 'Berpengalaman & dedikasi tinggi',
+                    icon: Icons.monetization_on,
+                    title: 'Yuran Mengaji',
+                    subtitle:
+                        'Serendah RM50 sebulan & Pendaftaran RM25 SEKALI sahaja',
                   ),
                   FeatureItem(
-                    icon: Icons.shield_outlined,
-                    title: 'Kelas Berperingkat',
-                    subtitle: 'Disusun mengikut keupayaan',
+                    icon: Icons.class_,
+                    title: 'Kelas Mengaji',
+                    subtitle:
+                        'Untuk pelajar 5 - 17 tahun dibimbing oleh ustaz ustazah berpengalaman',
                   ),
                   FeatureItem(
-                    icon: Icons.menu_book_outlined,
-                    title: 'Bimbingan Teratur',
-                    subtitle: 'Program tersusun & berkesan',
+                    icon: Icons.track_changes_outlined,
+                    title: 'Target Kami',
+                    subtitle:
+                        'Setahun 2x ujian bertulis & hafazan. Buku rekod disediakan untuk pemantauan ibu bapa',
                   ),
                 ],
               ),
@@ -122,7 +140,8 @@ class HomePage extends StatelessWidget {
             SectionHeader(
               title: 'Kelas Pilihan',
               onSeeAll: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ProgramPage()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const ProgramPage()));
               },
             ),
             const SizedBox(height: 12),
@@ -131,12 +150,15 @@ class HomePage extends StatelessWidget {
                   .map(
                     (p) => Expanded(
                       child: Padding(
-                        padding: EdgeInsets.only(right: p == featured.first ? 12 : 0),
+                        padding: EdgeInsets.only(
+                            right: p == featured.first ? 12 : 0),
                         child: ClassCard(
                           program: p,
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (_) => ProgramDetailPage(program: p)),
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      ProgramDetailPage(program: p)),
                             );
                           },
                         ),
@@ -151,7 +173,14 @@ class HomePage extends StatelessWidget {
             SectionHeader(
               title: 'Jadual Terdekat',
               onSeeAll: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SchedulePage()));
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const JadualPage(
+                      showBackButton: true,
+                      showTitle: false,
+                    ),
+                  ),
+                );
               },
             ),
             const SizedBox(height: 12),

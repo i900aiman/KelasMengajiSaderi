@@ -87,3 +87,42 @@ class AppTheme {
     );
   }
 }
+
+
+
+
+/// Colour palette lifted from the original Jadual Kelas Mengaji Saderi poster.
+class JadualTheme {
+  JadualTheme._();
+
+  // Background gradient (teal -> pink, like the poster)
+  static const backgroundGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFBFEFE6),
+      Color(0xFFEFEAF6),
+      Color(0xFFF9D9E4),
+    ],
+  );
+
+  static const headerNavy = Color(0xFF241B4E);
+  static const gold = Color(0xFFF2C230);
+  static const cardNavy = Color(0xFF1E3A66);
+  static const cardBorderGold = Color(0xFFC98A2C);
+  static const dayBadgeBlack = Color(0xFF16181D);
+
+  static const bacaanLabel = Color(0xFF35D6C6);
+  static const serbagunaLabel = Color(0xFF7CE07C);
+
+  // Ribbon colours used across the schedule
+  static const ribbonPurple = Color(0xFFD24BD8);
+  static const ribbonOrange = Color(0xFFF2A44E);
+  static const ribbonRed = Color(0xFFE8523F);
+  static const ribbonBlue = Color(0xFF4FB6E0);
+  static const ribbonYellow = Color(0xFFE3D544);
+  static const ribbonCream = Color(0xFFEDEAE0);
+  static const ribbonGreen = Color(0xFFB6E39A);
+
+  static const ribbonDarkText = Color(0xFF1E2430);
+}

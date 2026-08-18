@@ -40,3 +40,22 @@ class TeacherClass {
     required this.time,
   });
 }
+
+
+
+/// A teacher (ustaz/ustazah) shown at the top of the Jadual page.
+class Teacher {
+  final String name;
+  final String honorific; // "Ustaz" or "Ustazah"
+  final String? role; // e.g. "Pengurus"
+  final String? photoAsset; // path under assets/images/teachers/, optional
+
+  const Teacher({
+    required this.name,
+    required this.honorific,
+    this.role,
+    this.photoAsset,
+  });
+
+  String get displayName => '$honorific $name';
+}

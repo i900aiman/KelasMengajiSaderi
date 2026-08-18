@@ -19,8 +19,8 @@ class DummyData {
   static final List<ProgramModel> programs = [
     ProgramModel(
       id: 'asas-iqra',
-      title: "Asas Iqra'",
-      subtitle: 'Belajar membaca huruf hijaiyah dan asas bacaan.',
+      title: "Kelas Bilik Serbaguna/Bilik Bacaan",
+      subtitle: '(Kelas Mengaji yang dibimbing oleh 7orang ustaz & ustazah)',
       badgeText: 'Tahap Permulaan',
       badgeColor: AppColors.iconPurple.withValues(alpha: 0.12),
       badgeTextColor: AppColors.iconPurple,
@@ -41,8 +41,8 @@ class DummyData {
     ),
     ProgramModel(
       id: 'mengaji-al-quran',
-      title: 'Mengaji Al-Quran',
-      subtitle: 'Membaca Al-Quran dengan tajwid yang betul dan lancar.',
+      title: 'Kelas Berfokus',
+      subtitle: 'Terhad kerpada 8orang SAHAJA, dimbimbing oleh Ustaz Muqri.',
       badgeText: 'Semua Umur',
       badgeColor: AppColors.iconBlue.withValues(alpha: 0.12),
       badgeTextColor: AppColors.iconBlue,
@@ -64,8 +64,8 @@ class DummyData {
     ),
     ProgramModel(
       id: 'tajwid-taranum',
-      title: 'Tajwid & Taranum',
-      subtitle: 'Perbaiki bacaan dan pelajari lagu taranum yang indah.',
+      title: 'Kelas Private',
+      subtitle: 'Terhad kepada Pelajar Hafazan SAHAJA',
       badgeText: 'Kanak-Kanak & Dewasa',
       badgeColor: AppColors.iconMaroon.withValues(alpha: 0.12),
       badgeTextColor: AppColors.iconMaroon,
@@ -83,29 +83,7 @@ class DummyData {
         'Latihan irama dan sebutan',
         'Persediaan untuk pertandingan tilawah',
       ],
-    ),
-    ProgramModel(
-      id: 'kelas-dewasa',
-      title: 'Kelas Dewasa',
-      subtitle: 'Kelas mengaji khusus untuk jemaah dewasa.',
-      badgeText: 'Dewasa',
-      badgeColor: AppColors.iconGreen.withValues(alpha: 0.12),
-      badgeTextColor: AppColors.iconGreen,
-      icon: Icons.person_rounded,
-      iconBackground: AppColors.iconGreen,
-      day: 'Sabtu',
-      time: '8:00 - 9:00 malam',
-      location: 'Dewan Al-Saderi',
-      teacher: 'Ustazah Nurul',
-      price: 'RM55 / bulan',
-      category: const ['Semua', 'Dewasa'],
-      whatYouLearn: const [
-        'Bacaan asas hingga lancar untuk dewasa',
-        'Suasana kelas yang selesa & tidak tergesa-gesa',
-        'Bimbingan individu mengikut tahap',
-        'Latihan bacaan mingguan',
-      ],
-    ),
+    )
   ];
 
   static final List<TeacherModel> teachers = [
