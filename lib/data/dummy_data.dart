@@ -156,8 +156,11 @@ class DummyData {
     ),
   ];
 
-  /// Jadual untuk minggu contoh (21 - 27 Mei).
-  static List<ScheduleModel> scheduleForWeek(DateTime weekStart) {
+  /// Jadual untuk minggu CONTOH (data statik, 21 - 27 Mei) — dikekalkan
+  /// (di-rename dari 'scheduleForWeek' asal) sebab nama tu clash dengan
+  /// method baru di bawah. Kalau tiada tempat lain dalam app panggil
+  /// fungsi ni secara spesifik, boleh je dipadam terus.
+  static List<ScheduleModel> scheduleForSampleWeek(DateTime weekStart) {
     return [
       ScheduleModel(
         id: 'sch-1',
@@ -209,4 +212,77 @@ class DummyData {
       ),
     ];
   }
+
+  static const List<_ScheduleSlot> _weeklySchedule = [
+    _ScheduleSlot(weekday: DateTime.monday, room: 'Bilik Bacaan', teachers: ['Ustazah Aidah']),
+    _ScheduleSlot(weekday: DateTime.monday, room: 'Bilik Serbaguna', teachers: ['Ustaz Kholil', 'Ustaz Fakhrul']),
+    _ScheduleSlot(weekday: DateTime.tuesday, room: 'Bilik Bacaan', teachers: ['Ustaz Afif', 'Ustazah Ameera']),
+    _ScheduleSlot(weekday: DateTime.tuesday, room: 'Bilik Serbaguna', teachers: ['Ustaz Kholil', 'Ustaz Fakhrul']),
+    _ScheduleSlot(weekday: DateTime.wednesday, room: 'Bilik Bacaan', teachers: ['Ustazah Hidayah', 'Ustazah Ameera']),
+    _ScheduleSlot(weekday: DateTime.wednesday, room: 'Bilik Serbaguna', teachers: ['Ustaz Afif', 'Ustazah Aidah']),
+    _ScheduleSlot(weekday: DateTime.thursday, room: 'Bilik Bacaan', teachers: ['Ustaz Afif', 'Ustazah Hidayah']),
+    _ScheduleSlot(weekday: DateTime.thursday, room: 'Bilik Serbaguna', teachers: ['Ustaz Kholil', 'Ustaz Fakhrul']),
+    _ScheduleSlot(weekday: DateTime.friday, room: 'Bilik Bacaan', teachers: ['Ustazah Ameera', 'Ustaz Muqri']),
+    _ScheduleSlot(weekday: DateTime.friday, room: 'Bilik Serbaguna', teachers: ['Ustazah Aidah']),
+  ];
+
+  static const _dayNames = {
+    DateTime.monday: 'Isnin',
+    DateTime.tuesday: 'Selasa',
+    DateTime.wednesday: 'Rabu',
+    DateTime.thursday: 'Khamis',
+    DateTime.friday: 'Jumaat',
+  };
+
+  /// Jadual kelas akan datang — semua kelas Isnin-Jumaat, waktu seragam
+  /// 8:00-9:30 malam. Dikira ikut tarikh sebenar terdekat dari [now],
+  /// disusun ikut yang paling dekat dahulu. Ni method yang dipanggil oleh
+  /// homepage.dart (DummyData.scheduleForWeek(DateTime.now())).
+  static List<ScheduleModel> scheduleForWeek(DateTime now) {
+    const time = '8:00 - 9:30 malam';
+    const startHour = 20; // 8 malam — untuk tentukan dah lepas waktu ke belum
+
+    final items = _weeklySchedule.map((slot) {
+      final date = _nextOccurrence(slot.weekday, now, startHour);
+      final daySlug = _dayNames[slot.weekday]!.toLowerCase();
+      final roomSlug = slot.room == 'Bilik Bacaan' ? 'bacaan' : 'serbaguna';
+
+      return ScheduleModel(
+        id: 'kelas-$daySlug-$roomSlug',
+        // NOTA: kelas mingguan (Isnin-Jumaat) ni tak sepadan dengan
+        // mana-mana ProgramModel sedia ada (semua program tu Sabtu/Ahad).
+        // 'programId' bawah ni placeholder sahaja — kalau nanti ScheduleCard
+        // dapat 'onTap' yang cari program guna id ni, ia akan gagal sebab
+        // takde ProgramModel dengan id ni. Selamat buat masa ni sebab
+        // homepage.dart panggil ScheduleCard tanpa onTap untuk list ni.
+        programId: 'kelas-mengaji-mingguan',
+        title: 'Kelas ${_dayNames[slot.weekday]}',
+        icon: slot.room == 'Bilik Bacaan' ? Icons.menu_book_rounded : Icons.groups_rounded,
+        iconBackground: AppColors.primary,
+        teacher: slot.teachers.join(' & '),
+        location: slot.room,
+        time: time,
+        date: date,
+        status: ScheduleStatus.tersedia,
+      );
+    }).toList()
+      ..sort((a, b) => a.date.compareTo(b.date));
+
+    return items;
+  }
+
+  static DateTime _nextOccurrence(int weekday, DateTime now, int startHour) {
+    var date = DateTime(now.year, now.month, now.day, startHour);
+    final diff = (weekday - date.weekday) % 7;
+    date = date.add(Duration(days: diff));
+    if (date.isBefore(now)) date = date.add(const Duration(days: 7));
+    return date;
+  }
+}
+
+class _ScheduleSlot {
+  final int weekday;
+  final String room;
+  final List<String> teachers;
+  const _ScheduleSlot({required this.weekday, required this.room, required this.teachers});
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelas_mengaji_saderi/screens/home/poster_jadual_card.dart';
 import 'package:kelas_mengaji_saderi/screens/timeline/timeline_page.dart';
 import '../../data/dummy_data.dart';
 import '../../theme/app_theme.dart';
@@ -49,59 +50,8 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-
-            // --- Banner utama ---
-            Container(
-              padding: const EdgeInsets.all(22),
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Belajar Al-Quran\nDengan Mudah & Teratur',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 21,
-                        fontWeight: FontWeight.bold,
-                        height: 1.3),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Bimbingan mengaji secara berperingkat untuk kanak-kanak dan dewasa.',
-                    style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.85),
-                        fontSize: 13,
-                        height: 1.4),
-                  ),
-                  const SizedBox(height: 18),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => const ProgramPage()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: AppColors.primary,
-                      minimumSize: const Size(0, 44),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                    ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Daftar Sekarang',
-                            style: TextStyle(fontWeight: FontWeight.w700)),
-                        SizedBox(width: 6),
-                        Icon(Icons.arrow_forward_rounded, size: 18),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 18),
+          const PosterJadualCard(), 
+                const SizedBox(height: 16), 
 
             // --- 3 ciri utama ---
             Container(
@@ -184,7 +134,9 @@ class HomePage extends StatelessWidget {
               },
             ),
             const SizedBox(height: 12),
-            ...upcoming.take(2).map((s) => ScheduleCard(schedule: s)),
+            ...upcoming.take(1).map((s) => ScheduleCard(schedule: s)),
+            const SizedBox(height: 16),
+
           ],
         ),
       ),
