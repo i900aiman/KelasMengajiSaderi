@@ -6,7 +6,11 @@ import '../widgets/program_card.dart';
 import 'program_detail_page.dart';
 
 class ProgramPage extends StatefulWidget {
-  const ProgramPage({super.key});
+   final bool showBackButton;
+
+  const ProgramPage({
+  super.key,
+  this.showBackButton = false});
 
   @override
   State<ProgramPage> createState() => _ProgramPageState();
@@ -28,6 +32,15 @@ class _ProgramPageState extends State<ProgramPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: widget.showBackButton
+        ? AppBar(
+            title: const Text('Kelas Mengaji'),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textDark),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          )
+        : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(18, 12, 18, 0),

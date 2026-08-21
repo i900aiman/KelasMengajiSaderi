@@ -90,8 +90,13 @@ class HomePage extends StatelessWidget {
             SectionHeader(
               title: 'Kelas Pilihan',
               onSeeAll: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const ProgramPage()));
+                 Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const ProgramPage(
+                      showBackButton: true,
+                    ),
+                  ),
+                );
               },
             ),
             const SizedBox(height: 12),
