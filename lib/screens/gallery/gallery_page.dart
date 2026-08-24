@@ -43,45 +43,6 @@ class _GalleryPageState extends State<GalleryPage> {
     }
   }
 
-  void _openEditAlbumForm(GalleryAlbum album) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => _EditAlbumFormPage(album: album)),
-    );
-  }
-
-  // Future<void> _confirmDelete(GalleryAlbum album) async {
-  //   final confirmed = await showDialog<bool>(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: const Text('Padam Album?'),
-  //       content: Text('Album "${album.title}" akan dipadam secara kekal.'),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () => Navigator.pop(context, false),
-  //           child: const Text('Batal'),
-  //         ),
-  //         TextButton(
-  //           onPressed: () => Navigator.pop(context, true),
-  //           child: const Text('Padam', style: TextStyle(color: Colors.red)),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-
-  //   if (confirmed == true) {
-  //     try {
-  //       await _service.deleteAlbum(album.id);
-  //       _loadAlbums();
-  //     } catch (e) {
-  //       if (mounted) {
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           const SnackBar(content: Text('Gagal padam album.')),
-  //         );
-  //       }
-  //     }
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +64,8 @@ class _GalleryPageState extends State<GalleryPage> {
               const SizedBox(height: 8),
               Text(
                 'Hebahan makluman rasmi, cuti pusat mengaji dan album gambar aktiviti pembelajaran.',
-                style: TextStyle(color: Colors.grey.shade600, fontSize: 14, height: 1.4),
+                style: TextStyle(
+                    color: Colors.grey.shade600, fontSize: 14, height: 1.4),
               ),
               const SizedBox(height: 20),
 
@@ -125,10 +87,16 @@ class _GalleryPageState extends State<GalleryPage> {
                   ),
                 ],
               ),
-              Container(height: 1, color: Colors.grey.shade300, margin: const EdgeInsets.only(top: 4)),
+              Container(
+                  height: 1,
+                  color: Colors.grey.shade300,
+                  margin: const EdgeInsets.only(top: 4)),
               const SizedBox(height: 20),
 
-              if (!_showAnnouncements) ..._buildGallerySection() else _buildAnnouncementsPlaceholder(),
+              if (!_showAnnouncements)
+                ..._buildGallerySection()
+              else
+                _buildAnnouncementsPlaceholder(),
             ],
           ),
         ),
@@ -162,7 +130,8 @@ class _GalleryPageState extends State<GalleryPage> {
             style: OutlinedButton.styleFrom(
               foregroundColor: Colors.black87,
               side: BorderSide(color: Colors.grey.shade300),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
             ),
           ),
         ],
@@ -176,7 +145,8 @@ class _GalleryPageState extends State<GalleryPage> {
       else if (_error != null)
         Padding(
           padding: const EdgeInsets.only(top: 40),
-          child: Center(child: Text(_error!, style: const TextStyle(color: Colors.red))),
+          child: Center(
+              child: Text(_error!, style: const TextStyle(color: Colors.red))),
         )
       else if ((_albumPage?.data.isEmpty ?? true))
         const Padding(
@@ -190,11 +160,13 @@ class _GalleryPageState extends State<GalleryPage> {
             onView: () => showGalleryAlbumDetailDialog(
               context,
               albumId: album.id,
-              onEdit: () => _openEditAlbumForm(album),
+              onEdit: () {
+                // TODO: navigate to edit-album form
+              },
               onChanged: _loadAlbums, // refresh list count bila image dipadam
             ),
             onEdit: () {
-              _openEditAlbumForm(album);
+              // TODO: navigate to edit-album form
             },
             onDelete: () {},
           ),
@@ -206,58 +178,6 @@ class _GalleryPageState extends State<GalleryPage> {
     return const Padding(
       padding: EdgeInsets.only(top: 40),
       child: Center(child: Text('Pengumuman Rasmi akan datang.')),
-    );
-  }
-}
-
-class _EditAlbumFormPage extends StatefulWidget {
-  final GalleryAlbum album;
-
-  const _EditAlbumFormPage({required this.album});
-
-  @override
-  State<_EditAlbumFormPage> createState() => _EditAlbumFormPageState();
-}
-
-class _EditAlbumFormPageState extends State<_EditAlbumFormPage> {
-  late final TextEditingController _titleController;
-  late final TextEditingController _descriptionController;
-
-  @override
-  void initState() {
-    super.initState();
-    _titleController = TextEditingController(text: widget.album.title);
-    _descriptionController = TextEditingController(text: widget.album.description);
-  }
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Sunting Album')),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: const InputDecoration(labelText: 'Tajuk album'),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _descriptionController,
-              decoration: const InputDecoration(labelText: 'Penerangan'),
-              maxLines: 4,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
