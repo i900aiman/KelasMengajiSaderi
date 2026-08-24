@@ -17,6 +17,7 @@ dependencies:
   url_launcher: ^6.3.2        # untuk buka WhatsApp / Telefon / E-mel terus
   # table_calendar: ^3.1.2      # untuk kalendar penuh di halaman Jadual
   # shared_preferences: ^2.2.3  # untuk simpan data pendaftaran/tempatan
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:

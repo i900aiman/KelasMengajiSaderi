@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelas_mengaji_saderi/screens/gallery/gallery_page.dart';
 import 'package:kelas_mengaji_saderi/screens/timeline/timeline_page.dart';
 import '../widgets/custom_bottom_nav.dart';
 import 'contact_page.dart';
@@ -21,6 +22,7 @@ class _MainNavigationState extends State<MainNavigation> {
     HomePage(),
     ProgramPage(),
     JadualPage(),
+    GalleryPage(),
     ContactPage(),
   ];
 
