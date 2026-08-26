@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelas_mengaji_saderi/api/get.dart';
 import 'package:kelas_mengaji_saderi/models/gallery_model.dart';
+import 'package:kelas_mengaji_saderi/screens/gallery/gallery_album_detail_page.dart';
 import 'package:kelas_mengaji_saderi/widgets/gallery_album_card.dart';
 import 'package:kelas_mengaji_saderi/widgets/gallery_album_detail_dialog.dart';
 
@@ -155,19 +156,25 @@ class _GalleryPageState extends State<GalleryPage> {
         )
       else
         ..._albumPage!.data.map(
-          (album) => GalleryAlbumCard(
+          (album) =>
+              // Di dalam gallery_page.dart
+              GalleryAlbumCard(
             album: album,
-            onView: () => showGalleryAlbumDetailDialog(
-              context,
-              albumId: album.id,
-              onEdit: () {
-                // TODO: navigate to edit-album form
-              },
-              onChanged: _loadAlbums, // refresh list count bila image dipadam
-            ),
-            onEdit: () {
-              // TODO: navigate to edit-album form
+            onView: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => GalleryAlbumDetailPage(
+                    albumId: album.id,
+                    onEdit: () {
+                      // TODO: navigate to edit-album form
+                    },
+                    onChanged: _loadAlbums,
+                  ),
+                ),
+              );
             },
+            onEdit: () {},
             onDelete: () {},
           ),
         ),
