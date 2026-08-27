@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelas_mengaji_saderi/screens/home/poster_jadual_card.dart';
 import 'package:kelas_mengaji_saderi/screens/timeline/timeline_page.dart';
+import 'package:kelas_mengaji_saderi/screens/yuran/yuran_search.dart';
 import '../../data/dummy_data.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/class_card.dart';
@@ -61,13 +62,19 @@ class HomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.border),
               ),
-              child: const Row(
+              child:  Row(
                 children: [
-                  FeatureItem(
-                    icon: Icons.monetization_on,
-                    title: 'Yuran Mengaji',
-                    subtitle:
-                        'Serendah RM50 sebulan & Pendaftaran RM25 SEKALI sahaja',
+                  InkWell(
+                    onTap: () {
+                       Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => YuranSearchPage()));
+                    },
+                    child: FeatureItem(
+                      icon: Icons.monetization_on,
+                      title: 'Yuran Mengaji',
+                      subtitle:
+                          'Serendah RM50 sebulan & Pendaftaran RM25 SEKALI sahaja',
+                    ),
                   ),
                   FeatureItem(
                     icon: Icons.class_,
