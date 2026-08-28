@@ -13,7 +13,7 @@ class CustomBottomNav extends StatelessWidget {
 
   static const _items = [
     _NavItemData(icon: Icons.home_rounded, label: 'Utama'),
-    _NavItemData(icon: Icons.grid_view_rounded, label: 'Kelas'),
+    _NavItemData(icon: Icons.paid, label: 'Yuran'),
     _NavItemData(icon: Icons.calendar_month_rounded, label: 'Jadual'),
     _NavItemData(icon: Icons.image_outlined, label: 'Gallery'),
     _NavItemData(icon: Icons.call_rounded, label: 'Hubungi'),

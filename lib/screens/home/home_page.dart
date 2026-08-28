@@ -64,18 +64,13 @@ class HomePage extends StatelessWidget {
               ),
               child:  Row(
                 children: [
-                  InkWell(
-                    onTap: () {
-                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => YuranSearchPage()));
-                    },
-                    child: FeatureItem(
+                FeatureItem(
                       icon: Icons.monetization_on,
                       title: 'Yuran Mengaji',
                       subtitle:
                           'Serendah RM50 sebulan & Pendaftaran RM25 SEKALI sahaja',
                     ),
-                  ),
+                  
                   FeatureItem(
                     icon: Icons.class_,
                     title: 'Kelas Mengaji',

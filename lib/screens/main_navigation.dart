@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelas_mengaji_saderi/screens/gallery/gallery_page.dart';
 import 'package:kelas_mengaji_saderi/screens/timeline/timeline_page.dart';
+import 'package:kelas_mengaji_saderi/screens/yuran/yuran_search.dart';
 import '../widgets/custom_bottom_nav.dart';
 import 'contact_page.dart';
 import 'home/home_page.dart';
@@ -20,6 +21,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
   final _pages = const [
     HomePage(),
+    YuranSearchPage(),
     ProgramPage(),
     JadualPage(),
     GalleryPage(),
