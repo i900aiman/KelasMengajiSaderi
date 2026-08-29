@@ -18,12 +18,13 @@ class _YuranSearchPageState extends State<YuranSearchPage> {
     'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember',
   ];
 
-  static const _statusOptions = [
-    {'value': 'all', 'label': 'Semua Status'},
-    {'value': 'paid', 'label': 'Sudah Bayar'},
-    {'value': 'unpaid', 'label': 'Belum Bayar'},
-    {'value': 'pending', 'label': 'Dalam Proses'},
-  ];
+static const _statusOptions = [
+  {'value': 'Semua', 'label': 'Semua Status'},
+  {'value': 'paid', 'label': 'Sudah Bayar'},
+  {'value': 'partial', 'label': 'Bayaran Sebahagian'},
+  {'value': 'unpaid', 'label': 'Belum Bayar'},
+  {'value': 'exempted', 'label': 'Dikecualikan'},
+];
 
   final _service = YuranService();
   final _searchController = TextEditingController();
@@ -35,7 +36,7 @@ class _YuranSearchPageState extends State<YuranSearchPage> {
 
   int? _filterYear;
   int? _filterMonth;
-  String _filterStatus = 'all';
+  String _filterStatus = 'Semua';
   int _currentPage = 1;
 
   @override
@@ -45,30 +46,42 @@ class _YuranSearchPageState extends State<YuranSearchPage> {
   }
 
   Future<void> _search({int page = 1}) async {
-    final query = _searchController.text.trim();
-    if (query.isEmpty) return;
+  final query = _searchController.text.trim();
+
+  if (query.isEmpty) return;
+
+  setState(() {
+    _loading = true;
+    _error = null;
+    _hasSearched = true;
+    _currentPage = page;
+  });
+
+  try {
+    final result = await _service.searchYuran(
+  studentName: query,
+  status: _filterStatus,
+  page: page,
+  year: _filterYear,
+  month: _filterMonth,
+);
+
 
     setState(() {
-      _loading = true;
-      _error = null;
-      _hasSearched = true;
-      _currentPage = page;
+      _result = result;
     });
+  } catch (e) {
+    print('YURAN ERROR: $e');
 
-    try {
-      final result = await _service.searchYuran(
-        studentName: query,
-        page: page,
-        year: _filterYear,
-        month: _filterMonth,
-      );
-      setState(() => _result = result);
-    } catch (e) {
-      setState(() => _error = 'Gagal cari rekod yuran. Cuba lagi.');
-    } finally {
-      setState(() => _loading = false);
-    }
+    setState(() {
+      _error = 'Gagal cari rekod yuran. Cuba lagi.';
+    });
+  } finally {
+    setState(() {
+      _loading = false;
+    });
   }
+}
 
   void _clearSearch() {
     _searchController.clear();
@@ -249,9 +262,14 @@ class _YuranSearchPageState extends State<YuranSearchPage> {
                         .map((s) => DropdownMenuItem(value: s['value'], child: Text(s['label']!)))
                         .toList(),
                     onChanged: (v) {
-                      setState(() => _filterStatus = v ?? 'all');
-                      if (_hasSearched) _search();
-                    },
+  setState(() {
+    _filterStatus = v ?? 'Semua';
+  });
+
+  if (_hasSearched) {
+    _search();
+  }
+},
                   ),
                   const SizedBox(height: 12),
                   Row(

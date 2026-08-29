@@ -6,14 +6,16 @@ import 'package:kelas_mengaji_saderi/models/yuran_model.dart';
 
 class YuranService {
   Future<YuranPage> searchYuran({
-    required String studentName,
-    int page = 1,
-    int perPage = 20,
-    int? year,
-    int? month,
-  }) async {
+  required String studentName,
+  required String status,
+  int page = 1,
+  int perPage = 20,
+  int? year,
+  int? month,
+}) async {
     final params = <String, String>{
       'name': studentName,
+        'status': status,
       'page': '$page',
       'per_page': '$perPage',
     };
