@@ -99,9 +99,9 @@ class _ProgramPageState extends State<ProgramPage> {
                           return ProgramCard(
                             program: program,
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => ProgramDetailPage(program: program)),
-                              );
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(builder: (_) => ProgramDetailPage(program: program)),
+                              // );
                             },
                           );
                         },

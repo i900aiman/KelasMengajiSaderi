@@ -22,7 +22,6 @@ class _MainNavigationState extends State<MainNavigation> {
   final _pages = const [
     HomePage(),
     YuranSearchPage(),
-    ProgramPage(),
     JadualPage(),
     GalleryPage(),
     ContactPage(),

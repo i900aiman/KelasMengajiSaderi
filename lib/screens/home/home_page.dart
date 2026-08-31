@@ -112,11 +112,11 @@ class HomePage extends StatelessWidget {
                         child: ClassCard(
                           program: p,
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      ProgramDetailPage(program: p)),
-                            );
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //       builder: (_) =>
+                            //           ProgramDetailPage(program: p)),
+                            // );
                           },
                         ),
                       ),

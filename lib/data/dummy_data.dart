@@ -11,8 +11,8 @@ class DummyData {
 
   static const List<String> filterCategories = [
     'Semua',
-    'Kanak-Kanak',
-    'Dewasa',
+    'Umum',
+    'Khusus',
     'Online',
   ];
 
@@ -31,7 +31,7 @@ class DummyData {
       location: 'Dewan Al-Saderi',
       teacher: 'Ustazah Aisyah',
       price: 'RM50 / bulan',
-      category: const ['Semua', 'Kanak-Kanak'],
+      category: const ['Semua', 'Umum'],
       whatYouLearn: const [
         'Mengenal huruf hijaiyah',
         'Sebutan makhraj huruf asas',
@@ -53,7 +53,7 @@ class DummyData {
       location: 'Dewan Al-Saderi',
       teacher: 'Ustazah Aisyah',
       price: 'RM60 / bulan',
-      category: const ['Semua', 'Kanak-Kanak', 'Dewasa'],
+      category: const ['Semua', 'Khusus'],
       whatYouLearn: const [
         'Membaca Al-Quran dengan tajwid yang betul',
         'Makharijul huruf dan sifat-sifat huruf',
@@ -66,7 +66,7 @@ class DummyData {
       id: 'tajwid-taranum',
       title: 'Kelas Private',
       subtitle: 'Terhad kepada Pelajar Hafazan SAHAJA',
-      badgeText: 'Kanak-Kanak & Dewasa',
+      badgeText: 'Umum & Khusus',
       badgeColor: AppColors.iconMaroon.withValues(alpha: 0.12),
       badgeTextColor: AppColors.iconMaroon,
       icon: Icons.auto_awesome_rounded,
@@ -76,7 +76,7 @@ class DummyData {
       location: 'Bilik 2',
       teacher: 'Ustaz Farid',
       price: 'RM70 / bulan',
-      category: const ['Semua', 'Kanak-Kanak', 'Dewasa'],
+      category: const ['Semua', 'Khusus'],
       whatYouLearn: const [
         'Hukum tajwid tahap pertengahan & lanjutan',
         'Pengenalan lagu-lagu taranum',
@@ -90,13 +90,13 @@ class DummyData {
     TeacherModel(
       id: 'ustazah-aisyah',
       name: 'Ustazah Aisyah',
-      subjects: const ["Asas Iqra'", 'Kanak-Kanak'],
+      subjects: const ["Asas Iqra'", 'Umum'],
       yearsExperience: 8,
       studentsCount: 120,
       rating: 4.9,
       badge: 'Guru Berpengalaman',
       about:
-          "Ustazah Aisyah berpengalaman dalam pengajaran Asas Iqra' dan Mengaji Al-Quran untuk semua peringkat umur, terutamanya kanak-kanak dan dewasa awal. Pendekatan mesra dan sabar membantu pelajar membina asas yang kukuh.",
+          "Ustazah Aisyah berpengalaman dalam pengajaran Asas Iqra' dan Mengaji Al-Quran untuk semua peringkat umur, terutamanya umum dan khusus awal. Pendekatan mesra dan sabar membantu pelajar membina asas yang kukuh.",
       classesHandled: const [
         TeacherClass(
           programId: 'asas-iqra',
@@ -128,7 +128,7 @@ class DummyData {
         TeacherClass(
           programId: 'tajwid-taranum',
           title: 'Tajwid & Taranum',
-          ageOrLevel: 'Kanak-Kanak & Dewasa',
+          ageOrLevel: 'Umum & Khusus',
           day: 'Ahad',
           time: '11:15 pagi - 12:15 tgh',
         ),
@@ -137,13 +137,13 @@ class DummyData {
     TeacherModel(
       id: 'ustazah-nurul',
       name: 'Ustazah Nurul',
-      subjects: const ['Tajwid & Tarannum', 'Dewasa'],
+      subjects: const ['Tajwid & Tarannum', 'Khusus'],
       yearsExperience: 5,
       studentsCount: 60,
       rating: 4.7,
       badge: 'Guru Berdedikasi',
       about:
-          'Ustazah Nurul mengendalikan kelas dewasa dengan suasana santai dan tidak tergesa-gesa, sesuai untuk jemaah yang baru mahu memperbaiki bacaan.',
+          'Ustazah Nurul mengendalikan kelas khusus dengan suasana santai dan tidak tergesa-gesa, sesuai untuk jemaah yang baru mahu memperbaiki bacaan.',
       classesHandled: const [
         TeacherClass(
           programId: 'kelas-dewasa',

@@ -14,17 +14,27 @@ class _YuranSearchPageState extends State<YuranSearchPage> {
   static const _bg = Color(0xFFF6F3FB);
 
   static const _bulanList = [
-    'Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun',
-    'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember',
+    'Januari',
+    'Februari',
+    'Mac',
+    'April',
+    'Mei',
+    'Jun',
+    'Julai',
+    'Ogos',
+    'September',
+    'Oktober',
+    'November',
+    'Disember',
   ];
 
-static const _statusOptions = [
-  {'value': 'Semua', 'label': 'Semua Status'},
-  {'value': 'paid', 'label': 'Sudah Bayar'},
-  {'value': 'partial', 'label': 'Bayaran Sebahagian'},
-  {'value': 'unpaid', 'label': 'Belum Bayar'},
-  {'value': 'exempted', 'label': 'Dikecualikan'},
-];
+  static const _statusOptions = [
+    {'value': 'Semua', 'label': 'Semua Status'},
+    {'value': 'paid', 'label': 'Sudah Bayar'},
+    {'value': 'partial', 'label': 'Bayaran Sebahagian'},
+    {'value': 'unpaid', 'label': 'Belum Bayar'},
+    {'value': 'exempted', 'label': 'Dikecualikan'},
+  ];
 
   final _service = YuranService();
   final _searchController = TextEditingController();
@@ -46,42 +56,41 @@ static const _statusOptions = [
   }
 
   Future<void> _search({int page = 1}) async {
-  final query = _searchController.text.trim();
+    final query = _searchController.text.trim();
 
-  if (query.isEmpty) return;
-
-  setState(() {
-    _loading = true;
-    _error = null;
-    _hasSearched = true;
-    _currentPage = page;
-  });
-
-  try {
-    final result = await _service.searchYuran(
-  studentName: query,
-  status: _filterStatus,
-  page: page,
-  year: _filterYear,
-  month: _filterMonth,
-);
-
+    if (query.isEmpty) return;
 
     setState(() {
-      _result = result;
+      _loading = true;
+      _error = null;
+      _hasSearched = true;
+      _currentPage = page;
     });
-  } catch (e) {
-    print('YURAN ERROR: $e');
 
-    setState(() {
-      _error = 'Gagal cari rekod yuran. Cuba lagi.';
-    });
-  } finally {
-    setState(() {
-      _loading = false;
-    });
+    try {
+      final result = await _service.searchYuran(
+        studentName: query,
+        status: _filterStatus,
+        page: page,
+        year: _filterYear,
+        month: _filterMonth,
+      );
+
+      setState(() {
+        _result = result;
+      });
+    } catch (e) {
+      print('YURAN ERROR: $e');
+
+      setState(() {
+        _error = 'Gagal cari rekod yuran. Cuba lagi.';
+      });
+    } finally {
+      setState(() {
+        _loading = false;
+      });
+    }
   }
-}
 
   void _clearSearch() {
     _searchController.clear();
@@ -111,7 +120,10 @@ static const _statusOptions = [
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Pilih Bulan & Tahun',
-                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: _purple)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16,
+                          color: _purple)),
                   const SizedBox(height: 16),
                   Row(
                     children: [
@@ -120,10 +132,12 @@ static const _statusOptions = [
                           value: tempMonth,
                           decoration: const InputDecoration(labelText: 'Bulan'),
                           items: [
-                            const DropdownMenuItem(value: null, child: Text('Semua Bulan')),
+                            const DropdownMenuItem(
+                                value: null, child: Text('Semua Bulan')),
                             ...List.generate(
                               12,
-                              (i) => DropdownMenuItem(value: i + 1, child: Text(_bulanList[i])),
+                              (i) => DropdownMenuItem(
+                                  value: i + 1, child: Text(_bulanList[i])),
                             ),
                           ],
                           onChanged: (v) => setSheetState(() => tempMonth = v),
@@ -136,9 +150,11 @@ static const _statusOptions = [
                           decoration: const InputDecoration(labelText: 'Tahun'),
                           items: List.generate(5, (i) {
                             final y = DateTime.now().year - 2 + i;
-                            return DropdownMenuItem(value: y, child: Text('$y'));
+                            return DropdownMenuItem(
+                                value: y, child: Text('$y'));
                           }),
-                          onChanged: (v) => setSheetState(() => tempYear = v ?? tempYear),
+                          onChanged: (v) =>
+                              setSheetState(() => tempYear = v ?? tempYear),
                         ),
                       ),
                     ],
@@ -150,7 +166,8 @@ static const _statusOptions = [
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _purple,
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
                       ),
                       onPressed: () {
                         setState(() {
@@ -160,7 +177,8 @@ static const _statusOptions = [
                         Navigator.pop(ctx);
                         if (_hasSearched) _search();
                       },
-                      child: const Text('Guna', style: TextStyle(color: Colors.white)),
+                      child: const Text('Guna',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ),
                 ],
@@ -183,12 +201,14 @@ static const _statusOptions = [
           children: [
             const Text(
               'Semakan Yuran',
-              style: TextStyle(color: _purple, fontWeight: FontWeight.w800, fontSize: 24),
+              style: TextStyle(
+                  color: _purple, fontWeight: FontWeight.w800, fontSize: 24),
             ),
             const SizedBox(height: 8),
             Text(
               'Cari nama anak untuk semak status dan sejarah pembayaran yuran.',
-              style: TextStyle(color: Colors.grey.shade600, fontSize: 14, height: 1.4),
+              style: TextStyle(
+                  color: Colors.grey.shade600, fontSize: 14, height: 1.4),
             ),
             const SizedBox(height: 20),
 
@@ -221,14 +241,16 @@ static const _statusOptions = [
                         borderSide: BorderSide(color: Colors.grey.shade300),
                       ),
                     ),
-                    onChanged: (_) => setState(() {}), // refresh clear-icon visibility
+                    onChanged: (_) =>
+                        setState(() {}), // refresh clear-icon visibility
                   ),
                   const SizedBox(height: 12),
                   InkWell(
                     onTap: _pickMonthYear,
                     borderRadius: BorderRadius.circular(12),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 14),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey.shade300),
                         borderRadius: BorderRadius.circular(12),
@@ -259,30 +281,34 @@ static const _statusOptions = [
                       ),
                     ),
                     items: _statusOptions
-                        .map((s) => DropdownMenuItem(value: s['value'], child: Text(s['label']!)))
+                        .map((s) => DropdownMenuItem(
+                            value: s['value'], child: Text(s['label']!)))
                         .toList(),
                     onChanged: (v) {
-  setState(() {
-    _filterStatus = v ?? 'Semua';
-  });
+                      setState(() {
+                        _filterStatus = v ?? 'Semua';
+                      });
 
-  if (_hasSearched) {
-    _search();
-  }
-},
+                      if (_hasSearched) {
+                        _search();
+                      }
+                    },
                   ),
                   const SizedBox(height: 12),
                   Row(
                     children: [
                       Expanded(
                         child: OutlinedButton.icon(
-                          onPressed: _loading || !_hasSearched ? null : () => _search(page: _currentPage),
+                          onPressed: _loading || !_hasSearched
+                              ? null
+                              : () => _search(page: _currentPage),
                           icon: const Icon(Icons.refresh_rounded, size: 18),
                           label: const Text('Muat Semula'),
                           style: OutlinedButton.styleFrom(
                             foregroundColor: Colors.black87,
                             side: BorderSide(color: Colors.grey.shade300),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
                         ),
@@ -294,9 +320,11 @@ static const _statusOptions = [
                           style: ElevatedButton.styleFrom(
                             backgroundColor: _purple,
                             padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
                           ),
-                          child: const Text('Cari', style: TextStyle(color: Colors.white)),
+                          child: const Text('Cari',
+                              style: TextStyle(color: Colors.white)),
                         ),
                       ),
                     ],
@@ -323,7 +351,8 @@ static const _statusOptions = [
     if (_error != null) {
       return Padding(
         padding: const EdgeInsets.only(top: 40),
-        child: Center(child: Text(_error!, style: const TextStyle(color: Colors.red))),
+        child: Center(
+            child: Text(_error!, style: const TextStyle(color: Colors.red))),
       );
     }
     if (!_hasSearched) {
@@ -367,7 +396,8 @@ static const _statusOptions = [
           ),
           IconButton(
             icon: const Icon(Icons.chevron_right),
-            onPressed: r.page < r.lastPage ? () => _search(page: r.page + 1) : null,
+            onPressed:
+                r.page < r.lastPage ? () => _search(page: r.page + 1) : null,
           ),
         ],
       ),
@@ -414,41 +444,55 @@ class _YuranCard extends StatelessWidget {
                   children: [
                     Text(
                       record.studentName,
-                      style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: _purple),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15,
+                          color: _purple),
                     ),
                     if (record.className.isNotEmpty) ...[
                       const SizedBox(height: 2),
-                      Text(record.className, style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
+                      Text(record.className,
+                          style: TextStyle(
+                              color: Colors.grey.shade600, fontSize: 12)),
                     ],
                     const SizedBox(height: 2),
                     Text(
                       'Resit: ${record.receiptNo ?? '–'}',
-                      style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+                      style:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 12),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: _statusColor.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
                   record.status.toUpperCase(),
-                  style: TextStyle(color: _statusColor, fontWeight: FontWeight.w700, fontSize: 11),
+                  style: TextStyle(
+                      color: _statusColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          Text(record.periodLabel, style: TextStyle(color: Colors.grey.shade700, fontSize: 13)),
+          Text(record.periodLabel,
+              style: TextStyle(color: Colors.grey.shade700, fontSize: 13)),
           const SizedBox(height: 8),
           Row(
             children: [
               _AmountBlock(label: 'Perlu Bayar', value: record.amountDue),
               _AmountBlock(label: 'Telah Bayar', value: record.amountPaid),
-              _AmountBlock(label: 'Baki', value: record.balance, highlight: record.balance > 0),
+              _AmountBlock(
+                  label: 'Baki',
+                  value: record.balance,
+                  highlight: record.balance > 0),
             ],
           ),
           if (record.paidAt != null) ...[
@@ -468,7 +512,8 @@ class _AmountBlock extends StatelessWidget {
   final String label;
   final double value;
   final bool highlight;
-  const _AmountBlock({required this.label, required this.value, this.highlight = false});
+  const _AmountBlock(
+      {required this.label, required this.value, this.highlight = false});
 
   @override
   Widget build(BuildContext context) {
@@ -476,7 +521,8 @@ class _AmountBlock extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(color: Colors.grey.shade500, fontSize: 11)),
+          Text(label,
+              style: TextStyle(color: Colors.grey.shade500, fontSize: 11)),
           const SizedBox(height: 2),
           Text(
             'RM${value.toStringAsFixed(2)}',
