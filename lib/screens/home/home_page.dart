@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelas_mengaji_saderi/models/schedule_model.dart';
 import 'package:kelas_mengaji_saderi/screens/home/poster_jadual_card.dart';
 import 'package:kelas_mengaji_saderi/screens/timeline/timeline_page.dart';
 import 'package:kelas_mengaji_saderi/screens/yuran/yuran_search.dart';
@@ -51,8 +52,8 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-          const PosterJadualCard(), 
-                const SizedBox(height: 16), 
+            const PosterJadualCard(),
+            const SizedBox(height: 16),
 
             // --- 3 ciri utama ---
             Container(
@@ -62,15 +63,14 @@ class HomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.border),
               ),
-              child:  Row(
+              child: Row(
                 children: [
-                FeatureItem(
-                      icon: Icons.monetization_on,
-                      title: 'Yuran Mengaji',
-                      subtitle:
-                          'Serendah RM50 sebulan & Pendaftaran RM25 SEKALI sahaja',
-                    ),
-                  
+                  FeatureItem(
+                    icon: Icons.monetization_on,
+                    title: 'Yuran Mengaji',
+                    subtitle:
+                        'Serendah RM50 sebulan & Pendaftaran RM25 SEKALI sahaja',
+                  ),
                   FeatureItem(
                     icon: Icons.class_,
                     title: 'Kelas Mengaji',
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
             SectionHeader(
               title: 'Kelas Pilihan',
               onSeeAll: () {
-                 Navigator.of(context).push(
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => const ProgramPage(
                       showBackButton: true,
@@ -141,9 +141,46 @@ class HomePage extends StatelessWidget {
               },
             ),
             const SizedBox(height: 12),
-            ...upcoming.take(1).map((s) => ScheduleCard(schedule: s)),
-            const SizedBox(height: 16),
+            //ni single
+            // ...upcoming.take(1).map((s) => ScheduleCard(schedule: s)),
+            //ni double list
+//             ...(() {
+//   if (upcoming.isEmpty) return <Widget>[];
+//   final nearest = upcoming.first.date;
+//   bool isSameDay(DateTime a, DateTime b) =>
+//       a.year == b.year && a.month == b.month && a.day == b.day;
+//   return upcoming
+//       .where((s) => isSameDay(s.date, nearest))
+//       .map((s) => ScheduleCard(schedule: s))
+//       .toList();
+// })(),
+// ni sekali terus semua dalam 1 card
+            ...(() {
+              if (upcoming.isEmpty) return <Widget>[];
 
+              final nearest = upcoming.first.date;
+              bool isSameDay(DateTime a, DateTime b) =>
+                  a.year == b.year && a.month == b.month && a.day == b.day;
+
+              final todays =
+                  upcoming.where((s) => isSameDay(s.date, nearest)).toList();
+
+              final merged = ScheduleModel(
+                id: todays.first.id,
+                programId: todays.first.programId,
+                title: todays.first.title,
+                icon: todays.first.icon,
+                iconBackground: todays.first.iconBackground,
+                teacher: todays.map((s) => s.teacher).join(', '),
+                location: todays.map((s) => s.location).join(', '),
+                time: todays.first.time,
+                date: todays.first.date,
+                status: todays.first.status,
+              );
+
+              return [ScheduleCard(schedule: merged)];
+            })(),
+            const SizedBox(height: 16),
           ],
         ),
       ),

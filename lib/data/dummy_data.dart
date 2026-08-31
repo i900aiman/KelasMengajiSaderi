@@ -259,7 +259,7 @@ class DummyData {
         title: 'Kelas ${_dayNames[slot.weekday]}',
         icon: slot.room == 'Bilik Bacaan' ? Icons.menu_book_rounded : Icons.groups_rounded,
         iconBackground: AppColors.primary,
-        teacher: slot.teachers.join(' & '),
+        teacher: slot.teachers.join(', '),
         location: slot.room,
         time: time,
         date: date,
