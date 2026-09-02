@@ -13,7 +13,7 @@ class ContactPage extends StatelessWidget {
   // --- Nombor & alamat hubungan (tukar ikut keperluan sebenar) ---
   static const _whatsappNumber = '60135805761'; // tanpa '+', '0' depan & simbol
   static const _phoneNumber = '+60135805761';
-  static const _email = 'info@saderi.my';
+  static const _email = 'kelasmengajisaderi@gmail.com';
 
   //BUKA WHATSAPP
   Future<void> _openWhatsApp(BuildContext context) async {
